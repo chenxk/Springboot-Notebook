@@ -13,11 +13,9 @@
         <option value="$PROJECT_DIR$/springboot-rabbitmq-mqtt/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-aop-redis-lua-/pom.xml" />
         <option value="$PROJECT_DIR$/springboot-delayqueue/pom.xml" />
+        <option value="$PROJECT_DIR$/springboot-douyin-watermark/pom.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
-  <component name="SvnConfiguration">
-    <configuration>C:\Users\51536\AppData\Roaming\Subversion</configuration>
-  </component>
 </project>
