@@ -18,7 +18,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
@@ -55,15 +54,15 @@ public class DYController {
 
         ResultDto resultDto = new ResultDto();
         try {
-            url = URLDecoder.decode(url).replace("url=", "");
-
+            url = URLDecoder.decode(url, "utf-8").replace("url=", "");
             if (url.contains(CommonUtils.HUO_SHAN_DOMAIN)) {
-
                 resultDto = videoParseUrlService.hsParseUrl(url);
-
             } else if (url.contains(CommonUtils.DOU_YIN_DOMAIN)) {
-
                 resultDto = videoParseUrlService.dyParseUrl(url);
+            }else if (url.contains(CommonUtils.HUO_TOUTIAO_DOMAIN)) {
+                resultDto = videoParseUrlService.ttParseUrl(url);
+            }else if (url.contains(CommonUtils.HUO_XIGUA_DOMAIN)) {
+                resultDto = videoParseUrlService.ttParseUrl(url);
             }
         } catch (Exception e) {
 

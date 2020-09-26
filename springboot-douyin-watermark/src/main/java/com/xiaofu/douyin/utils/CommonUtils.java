@@ -20,6 +20,10 @@ public class CommonUtils {
 
     public static String HUO_SHAN_DOMAIN = "huoshan";
 
+    public static String HUO_TOUTIAO_DOMAIN = "toutiao";
+
+    public static String HUO_XIGUA_DOMAIN = "ixigua";
+
     public static String getLocation(String url) {
         try {
             URL serverUrl = new URL(url);

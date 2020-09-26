@@ -12,7 +12,10 @@ function copy(felu) {
 
 // 下载文件
 function downloadVideo(url, desc) {
-    window.open('/download?url=' + url);
+    window.location.href = ('/download?url=' + url);
+    if (true) {
+        return;
+    }
     /*if (isEmpty(url)) {
         layer.msg('暂无数据');
         return;
