@@ -23,9 +23,22 @@ public class Test {
     static RestTemplate restTemplate = new RestTemplate();
 
     public static void main(String[] args) {
+
+        String strContent = "三哥  （覃祖铭）在火山分享了视频，快来围观！传送门戳我>>https://share.huoshan.com/hotsoon/s/9M5e4a1JZb8/ 复制此链接，打开【火山极速版】，直接观看视频~";
+        strContent = "是，承认，智商这块你俩赢了#萌宠出道计划 #养宠进阶指南  https://v.douyin.com/JDdq36V/ 复制此链接，打开【抖音短视频】，直接观看视频！";
+        strContent = "https://m.toutiaoimg.cn/group/6871190293560557582/?app=news_article&timestamp=1601100212";
+        String regex = "(http:|https:)//[^[A-Za-z0-9\\._\\?%&+\\-=/#]]*";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(strContent);
+
+        matcher.find();
+
+        System.out.println(matcher.group(0));
+        /*
+
         String url = "https://m.toutiaoimg.cn/group/6871190293560557582/?app=news_article&timestamp=1601100212";
         System.out.println(getVideo(url));
-        System.out.println(getVideo("https://www.ixigua.com/6868877360066891021/"));
+        System.out.println(getVideo("https://www.ixigua.com/6868877360066891021/"));*/
     }
 
     //生成16位的随机数

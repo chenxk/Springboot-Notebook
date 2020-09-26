@@ -21,6 +21,8 @@ import java.net.URLDecoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -55,13 +57,14 @@ public class DYController {
         ResultDto resultDto = new ResultDto();
         try {
             url = URLDecoder.decode(url, "utf-8").replace("url=", "");
+            //url = splitUrl(url);
             if (url.contains(CommonUtils.HUO_SHAN_DOMAIN)) {
                 resultDto = videoParseUrlService.hsParseUrl(url);
             } else if (url.contains(CommonUtils.DOU_YIN_DOMAIN)) {
                 resultDto = videoParseUrlService.dyParseUrl(url);
-            }else if (url.contains(CommonUtils.HUO_TOUTIAO_DOMAIN)) {
+            } else if (url.contains(CommonUtils.HUO_TOUTIAO_DOMAIN)) {
                 resultDto = videoParseUrlService.ttParseUrl(url);
-            }else if (url.contains(CommonUtils.HUO_XIGUA_DOMAIN)) {
+            } else if (url.contains(CommonUtils.HUO_XIGUA_DOMAIN)) {
                 resultDto = videoParseUrlService.ttParseUrl(url);
             }
         } catch (Exception e) {
@@ -69,6 +72,17 @@ public class DYController {
             log.error("去水印异常 {}", e);
         }
         return JSON.toJSONString(resultDto);
+    }
+
+    public String splitUrl(String url) {
+        String regex = "(http:|https:)//[^[A-Za-z0-9\\._\\?%&+\\-=/#]]*";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(url);
+
+        if (matcher.find()) {
+            return matcher.group(0);
+        }
+        return url;
     }
 
     @RequestMapping("/download")
