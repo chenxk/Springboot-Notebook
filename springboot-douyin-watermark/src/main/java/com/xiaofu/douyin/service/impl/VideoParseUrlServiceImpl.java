@@ -1,18 +1,27 @@
 package com.xiaofu.douyin.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.xiaofu.douyin.Test;
 import com.xiaofu.douyin.po.DYResult;
 import com.xiaofu.douyin.po.HSResult;
 import com.xiaofu.douyin.po.ResultDto;
 import com.xiaofu.douyin.service.VideoParseUrlService;
 import com.xiaofu.douyin.utils.CommonUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
+import java.util.Set;
+
+import static com.xiaofu.douyin.Test.getVideoId;
+import static com.xiaofu.douyin.Test.getVideoInfo;
 
 /**
  * @Author: xiaofu
  * @Description:
  */
+@Slf4j
 @Component
 public class VideoParseUrlServiceImpl implements VideoParseUrlService {
 
@@ -114,5 +123,37 @@ public class VideoParseUrlServiceImpl implements VideoParseUrlService {
     @Override
     public ResultDto QMParseUrl(String redirectUrl) throws Exception {
         return null;
+    }
+
+    @Override
+    public ResultDto ttParseUrl(String redirectUrl) throws Exception {
+        ResultDto dyDto = new ResultDto();
+
+        String itemId = null;
+        if (redirectUrl.contains(CommonUtils.HUO_TOUTIAO_DOMAIN)) {
+            itemId = Test.matchTouTiao(redirectUrl);
+            if (StringUtils.isEmpty(itemId)) {
+                itemId = Test.matchTouTiao2(redirectUrl);
+            }
+        }
+        if (redirectUrl.contains(CommonUtils.HUO_XIGUA_DOMAIN)) {
+            itemId = Test.matchXigua(redirectUrl);
+        }
+
+        log.info("itemId:{}", itemId);
+
+        JSONObject videoInfo = getVideoId(itemId);
+
+        JSONObject video = getVideoInfo(videoInfo.getString("video_id"));
+
+        JSONObject videoList = video.getJSONObject("data").getJSONObject("video_list");
+        Set<String> strings = videoList.keySet();
+        String mainUrl = videoList.getJSONObject("video_" + strings.size()).getString("main_url");
+
+        dyDto.setDesc(videoInfo.getString("title"));
+        dyDto.setMusicUrl(null);
+        dyDto.setVideoPic(videoInfo.getString("poster_url"));
+        dyDto.setVideoUrl(mainUrl);
+        return dyDto;
     }
 }

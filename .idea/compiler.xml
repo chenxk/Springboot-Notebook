@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="springboot-douyin-watermark" />
         <module name="delayqueue" />
         <module name="springboot-aop-redis-lua" />
         <module name="springboot-rabbitmq-confirm" />
@@ -15,9 +16,18 @@
     <bytecodeTargetLevel>
       <module name="delayqueue" target="1.8" />
       <module name="springboot-aop-redis-lua" target="1.8" />
+      <module name="springboot-douyin-watermark" target="1.8" />
       <module name="springboot-rabbitmq-confirm" target="1.8" />
       <module name="springboot-rabbitmq-mqtt" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="delayqueue" options="-parameters" />
+      <module name="springboot-aop-redis-lua" options="-parameters" />
+      <module name="springboot-douyin-watermark" options="-parameters" />
+      <module name="springboot-rabbitmq-confirm" options="-parameters" />
+    </option>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

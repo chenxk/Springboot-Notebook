@@ -12,7 +12,11 @@ function copy(felu) {
 
 // 下载文件
 function downloadVideo(url, desc) {
-    if (isEmpty(url)) {
+    window.location.href = ('/download?url=' + url);
+    if (true) {
+        return;
+    }
+    /*if (isEmpty(url)) {
         layer.msg('暂无数据');
         return;
     }
@@ -35,7 +39,7 @@ function downloadVideo(url, desc) {
             a.remove();
         }
     };
-    xhr.send()
+    xhr.send()*/
 }
 
 
@@ -60,7 +64,7 @@ $(document).ready(function () {
                 $('.qsy-submit').attr('disabled', false);
                 try {
                     var rows = JSON.parse(data);
-                    alert(JSON.stringify(data));
+                    //alert(JSON.stringify(data));
                     layer.close(index);
                     layer.open({
                         type: 1,

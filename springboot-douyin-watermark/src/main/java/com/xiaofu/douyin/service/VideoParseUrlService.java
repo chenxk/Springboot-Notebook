@@ -10,4 +10,6 @@ public interface VideoParseUrlService {
     ResultDto hsParseUrl(String redirectUrl) throws Exception;
 
     ResultDto QMParseUrl(String redirectUrl) throws Exception;
+
+    ResultDto ttParseUrl(String redirectUrl) throws Exception;
 }
