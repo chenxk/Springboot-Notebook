@@ -85,4 +85,6 @@ overridedb.*
 *.iml
 .svn
 .DS_Store
-
+.idea
+*/*.iml
+*.iml
