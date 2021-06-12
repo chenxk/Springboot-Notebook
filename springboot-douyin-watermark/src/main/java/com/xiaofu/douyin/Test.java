@@ -6,6 +6,9 @@ import com.xiaofu.douyin.utils.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Random;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -39,7 +42,28 @@ public class Test {
         String url = "https://m.toutiaoimg.cn/group/6871190293560557582/?app=news_article&timestamp=1601100212";
         System.out.println(getVideo(url));
         System.out.println(getVideo("https://www.ixigua.com/6868877360066891021/"));*/
+
+        String url = "https://m.toutiao.com/is/e9WMWxu/";
+        String forObject = getRedirectUrl(url);
+        System.out.println(forObject);
+
     }
+
+    /**
+     * 获取重定向地址
+     */
+    public static String getRedirectUrl(String url) {
+        HttpURLConnection conn = null;
+        try {
+            conn = (HttpURLConnection) new URL(url).openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        conn.setInstanceFollowRedirects(false);
+        conn.setConnectTimeout(5000);
+        return conn.getHeaderField("Location");
+    }
+
 
     //生成16位的随机数
     private static String getRandom() {
@@ -82,6 +106,9 @@ public class Test {
 
     public static JSONObject getVideoId(String itemId) {
         String url = "https://m.toutiaoimg.cn/i" + itemId + "/info/v2/?_signature=";
+        if (itemId.startsWith("i")) {
+            url = "https://m.toutiaoimg.cn/" + itemId + "/info/v2/?_signature=";
+        }
         log.info("getVideoId:{}", url);
         JSONObject forObject = restTemplate.getForObject(url, JSONObject.class);
         log.info("forObject:{}", forObject);

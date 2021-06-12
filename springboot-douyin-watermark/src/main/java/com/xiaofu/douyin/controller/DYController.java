@@ -2,6 +2,7 @@ package com.xiaofu.douyin.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.xiaofu.douyin.Test;
 import com.xiaofu.douyin.po.ResultDto;
 import com.xiaofu.douyin.service.VideoParseUrlService;
 import com.xiaofu.douyin.utils.CommonUtils;
@@ -63,6 +64,9 @@ public class DYController {
             } else if (url.contains(CommonUtils.DOU_YIN_DOMAIN)) {
                 resultDto = videoParseUrlService.dyParseUrl(url);
             } else if (url.contains(CommonUtils.HUO_TOUTIAO_DOMAIN)) {
+                if (url.startsWith("https://m.toutiao.com/is")) {
+                    url = Test.getRedirectUrl(url);
+                }
                 resultDto = videoParseUrlService.ttParseUrl(url);
             } else if (url.contains(CommonUtils.HUO_XIGUA_DOMAIN)) {
                 resultDto = videoParseUrlService.ttParseUrl(url);
